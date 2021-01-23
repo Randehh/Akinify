@@ -1,2 +1,2 @@
-# Discord-Text-Curser
-A Discord bot that provides a varied amount of ways to curse text
+# Akinify
+A small python based application to create playlists with related artists with no personal bias.
