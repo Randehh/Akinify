@@ -1,3 +1,7 @@
+def get_artist_name(spotipy_api, aritist_uri):
+    result = spotipy_api.artist(aritist_uri)
+    return result["name"]
+
 def get_related_artists(spotipy_api, artist_uri, depth, artist_set, current_depth = -1):
     if current_depth == -1:
         current_depth = depth
@@ -30,8 +34,6 @@ def get_trimmed_track_set(track_uri_set, search_depth):
     for x in range(search_depth):
         base_list_length = base_list_length / 1.5
         song_count = song_count + base_list_length
-    
-    print("Final list size = " + str(song_count))
 
     limit = int(song_count)
     if len(track_uri_set) < song_count:
@@ -43,7 +45,8 @@ def get_trimmed_track_set(track_uri_set, search_depth):
     return trimmed_set
 
 def create_playlist_from_track_uri_set(spotipy_api, track_uri_set, title, description):
-    user = 'akuma-sama'
+    user = spotipy_api.current_user()["id"]
+    print(str(user))
     playlist_data = spotipy_api.user_playlist_create(user, title, description=description)
     
     track_list = list(track_uri_set)

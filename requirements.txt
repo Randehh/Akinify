@@ -1,3 +1,0 @@
-tweepy
-spotipy
-python_dotenv
