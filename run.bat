@@ -1,0 +1,1 @@
+start src\akinify.py src\.venv\Scripts\python.exe
