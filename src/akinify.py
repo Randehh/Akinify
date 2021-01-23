@@ -13,19 +13,24 @@ import spotify
 load_dotenv()
 
 spotipy_api = None
+spotipy_api_client = None
 
 def main():
 	print("Verifying arguments...")
 	args_length = len(sys.argv)
-	if args_length != 3:
-		print("ERROR: Argument count " + str((args_length - 1)) + " is not 2! Expected: artist_uri, search_depth")
+	if args_length != 4:
+		print("ERROR: Argument count " + str((args_length - 1)) + " is not 3! Expected: artist_uri, search_depth, username")
 		return
 	
 	print("Creating Spotify API...")
 	CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 	CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 	scope = "playlist-modify-public"
-	spotipy_api = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+	username = sys.argv[3]
+	if username == "":
+		username = None
+	spotipy_api = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, username=username))
+	print("Current user = " + spotipy_api.me()["id"])
 
 	print("Getting artist info...")
 	artist_uri = sys.argv[1]
